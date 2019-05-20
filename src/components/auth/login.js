@@ -3,13 +3,14 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { login } from '../../actions';
+import Navbar from '../common/navbar';
 
 
 class Login extends Component {
 
 	constructor(props) {
-    super(props);
-    this.state = {
+	    super(props);
+	    this.state = {
 			showAlert: false,
 			route    : 'Login',
 			username : 'superadmin',
@@ -32,6 +33,7 @@ class Login extends Component {
 		  	this.setState({
 		    	loading : false,
 		  	});
+		  	this.props.history.push('/');
 		});
 
 		e.preventDefault();
@@ -52,28 +54,41 @@ class Login extends Component {
   	
 
   	render() {
-    	const { handleSubmit } = this.props;
-    	const {showAlert} = this.state;
+    	const { showAlert } = this.state;
 
     	return (
       		<div>
-        		<hr />
-        		<input
-        			type="text"
-                 	placeholder='Username'
-                 	value={this.state.username}
-                 	onChange={(text) => this.setState({ username: text })} />
+      			<Navbar />
+      			<div className="container">
+      				<div className="row">
+      					<div className="col-xs-12">
+			        		<form>
+			        			<div className="form-group">
+					        		<input
+					        			type="text"
+					                 	placeholder='Username'
+					                 	value={this.state.username}
+					                 	className="form-control"
+					                 	onChange={(text) => this.setState({ username: text })} />
+					            </div>
+					            <div className="form-group">
+					              	<input
+					              		type="password"
+					                  	placeholder='Password'
+					                  	value={this.state.password}
+					                  	className="form-control"
+					                  	onChange={(text) => this.setState({ password: text })} />
+					            </div>
 
-              	<input
-              		type="password"
-                  	placeholder='Password'
-                  	value={this.state.password}
-                  	onChange={(text) => this.setState({ password: text })} />
-
-              	<button
-                	onClick={ (e) => this.userLogin(e) } >
-                	SIGN IN
-              	</button>
+				              	<button
+				                	onClick={ (e) => this.userLogin(e) }
+				                	className="btn btn-dark" >
+				                	SIGN IN
+				              	</button>
+				            </form>
+				        </div>
+				    </div>
+	            </div>
       		</div>
     	);
   	}

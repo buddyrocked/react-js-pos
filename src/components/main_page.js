@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { fetchCarts, getCart, clearCart, logout } from '../actions'; 
 import Home from './home/home';
+import Intro from './home/intro';
 import Login from './auth/login';
 
 class MainPage extends Component {
@@ -24,7 +25,11 @@ class MainPage extends Component {
 		if (this.props.token !== '') {
 			return <Home />
 		} else {
-			return <Login />
+			return (
+				<div> 
+					<Login />
+				</div>
+			);
 		}
 	}
 }

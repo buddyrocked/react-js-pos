@@ -9,6 +9,7 @@ const defaultState = {
 export default function(state = defaultState, action){
   switch (action.type) {
       case LOGIN:
+          console.log(action.payload.data);
           return Object.assign({}, state, action.payload.data);
       case LOGOUT:
           return Object.assign({}, state, {
