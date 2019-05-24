@@ -1,34 +1,32 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
+import Loader from 'react-loader-spinner';
 
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
+class LoaderComponent extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            loading : this.props.loading
+        }
+    }
 
-const Loader = props => {
-  const {
-    loading,
-    ...attributes
-  } = props;
+    render() {
+        if(this.state.loading){
+            return (
+                    <div id="loader-container">
+                        <Loader 
+                            type="Audio"
+                            color="#2C3E50"
+                            height="100"    
+                            width="100"
+                        />
+                    </div>
+            );
+        } 
 
-  return (
-    <Modal
-      isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-    >
-    Modal
-    </Modal>
-  )
+        return (
+            ''
+        );
+    };
 }
 
-export default Loader;
+export default LoaderComponent;

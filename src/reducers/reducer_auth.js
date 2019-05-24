@@ -1,24 +1,24 @@
 import { LOGOUT, LOGIN } from '../actions';
 const defaultState = {
-  token    : '',
-  user_id  : '',
-  username : '',
-  password : ''
+    token    : '',
+    user_id  : '',
+    username : '',
+    password : ''
 }
 
 export default function(state = defaultState, action){
-  switch (action.type) {
-      case LOGIN:
-          console.log(action.payload.data);
-          return Object.assign({}, state, action.payload.data);
-      case LOGOUT:
-          return Object.assign({}, state, {
-               token: '',
-               user_id: '',
-               username: '',
-               password: ''
-          });
-      default:
-          return state;
+    switch (action.type) {
+        case LOGIN:
+            console.log(action.payload.data);
+            return Object.assign({}, state, action.payload.data);
+        case LOGOUT:
+            return Object.assign({}, state, {
+                token: '',
+                user_id: '',
+                username: '',
+                password: ''
+            });
+        default:
+            return state;
   }
 }

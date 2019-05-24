@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Navbar from '../common/navbar'
 
 
 class Intro extends Component {
@@ -13,7 +11,7 @@ class Intro extends Component {
 		}
 	}
 
-	async componentDidMount(){
+	componentDidMount(){
 		const welcomeMessage = 'Hai, Welcome To My App';
 		this.setState({
 			message : welcomeMessage,
@@ -23,7 +21,6 @@ class Intro extends Component {
 	render() {
 		return (
 			<div className="intro">
-				<Navbar />
 				{ this.state.message }
 			</div>
 		);

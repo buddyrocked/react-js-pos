@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Navbar from '../common/navbar';
 
 
 class Index extends Component {
@@ -15,9 +13,8 @@ class Index extends Component {
 	render() {
 		return (
 			<div>
-				<Navbar />
-					Profile Page
-					{ this.props.token }
+				Profile Page
+				{ this.props.token }
 			</div>
 		);
 	}

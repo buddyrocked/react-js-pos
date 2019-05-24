@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { Alert, AsyncStorage } from 'react';
-import deviceStorage from '../services/deviceStorage';
-import saveStorage from '../services/saveStorage';
+import { Alert } from 'react';
+/*import deviceStorage from '../services/deviceStorage';
+import saveStorage from '../services/saveStorage';*/
 
 export const FETCH_HOME      = 'fetch_home';
 export const FETCH_PRODUCTS  = 'fetch_products';
@@ -34,14 +34,13 @@ export function fetchHome() {
     }
 }
 
-export const login = (values, callback) => async (dispatch, getState) => {
+export const login = (values, callback, callback2) => async (dispatch, getState) => {
     try{
 
         await axios.post(`${ROOT_URL}auth/login`, values)
         .then((responseJson) => {
-            if(responseJson.data.token == '') {
-                alert(responseJson.data.message);
-                callback();
+            if(responseJson.data.token === '') {
+                callback2();
             } else {
                 dispatch({
                     type: LOGIN,
@@ -195,7 +194,7 @@ export const deleteCart = (id, callback) => async (dispatch, getState) => {
         const TOKEN = getState().auth.token;
         const API_KEY = `?access-token=${TOKEN}`;
 
-        let request = await axios.delete(`${ROOT_URL}carts/${id}${API_KEY}`)
+        await axios.delete(`${ROOT_URL}carts/${id}${API_KEY}`)
         .then(() => callback());
         dispatch({type: DELETE_CART, payload: id});
     }catch(e){

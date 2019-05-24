@@ -1,5 +1,3 @@
-import { AsyncStorage } from 'react';
-
 const Auth = {
 	isAuthenticated(){
 		var value = localStorage.getItem('token');

@@ -10,7 +10,7 @@ class Navbar extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-		  cart_count : 0,
+		  	cart_count : 0,
 		};
 	}
 
@@ -97,4 +97,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));
