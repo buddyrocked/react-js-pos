@@ -83,7 +83,8 @@ export const logout = (callback) => async (dispatch, getState) => {
 
 export const fetchProducts = (page = 1, term= 'pink') => async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.get(`${ROOT_URL}prices${API_KEY}&expand=product&page=${page}&term=${term}`);
@@ -95,7 +96,8 @@ export const fetchProducts = (page = 1, term= 'pink') => async (dispatch, getSta
 
 export const fetchProduct = (id) => async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.get(`${ROOT_URL}products/${id}${API_KEY}`);

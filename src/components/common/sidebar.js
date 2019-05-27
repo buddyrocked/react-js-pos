@@ -20,9 +20,7 @@ class Sidebar extends Component {
 			this.props.history.push('/');
 		});
 		e.preventDefault();
-	}
-
-	
+	}	
 
 	componentDidMount(){
 
@@ -37,7 +35,7 @@ class Sidebar extends Component {
 		        </div>
 		        <ul className="list-unstyled components sidebar-menu">
 		        	<li>
-		        		<Link to="/">
+		        		<Link to="/products">
 		        			<FaBeer size="1.8em" color="#ff5c63" style={iconStyle}/>
 		        			Cashier
 		        		</Link>

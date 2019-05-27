@@ -5,19 +5,21 @@
   "dependencies": {
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-icons": "^3.7.0",
     "react-loader-spinner": "^2.3.0",
     "react-modal": "^3.8.1",
+    "react-placeholder": "^3.0.2",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
+    "react-sliding-pane": "^3.1.0",
     "redux-form": "^8.2.0",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
-    "rn-placeholder": "^2.0.0",
-    "rn-sliding-up-panel": "^2.2.0"
+    "sweetalert2-react": "^0.8.1"
   },
   "scripts": {
     "start": "react-scripts start",

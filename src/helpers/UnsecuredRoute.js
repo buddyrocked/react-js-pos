@@ -3,7 +3,6 @@ import {Route} from 'react-router-dom';
 
 import Auth from '../services/auth';
 import Sidebar from '../components/common/sidebar';
-import NotAuthorized from '../components/auth/NotAuthorized';
 
 function UnsecuredRoute(props) {
 	const {component: Component, path, withSidebar} = props;

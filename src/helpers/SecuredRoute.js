@@ -1,6 +1,5 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import Auth from '../services/auth';
 import Sidebar from '../components/common/sidebar';
