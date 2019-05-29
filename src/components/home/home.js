@@ -28,25 +28,17 @@ class Home extends Component {
 	}
 
 	render() {
-		if(!Auth.isAuthenticated()){
+		if(Auth.isAuthenticated() || this.props.token !== ''){
 			return (
 				<div className="container">
 					<div className="row">
 						<div className="col-lg-4 col-lg-offset-4">
 							<h1 className="center">HOMEPAGE</h1>
 	    					<div className="well">
-	    						<div className="alert alert-danger center">
-	    							Welcome To Point of Sales.
-	    						</div>
-	    						<div className="center">
-	    							<FaBoxOpen size="8em" color="#ff5c63" />
-	    						</div>
-	    						<div className="text-primary text-label center">
-	    							Already have an account? Please login.
-	    						</div>
-	    						<div>
-									<Link to="/login" className="btn btn-primary btn-lg btn-block">Login</Link>
-								</div>
+								<Link to="/profile" className="btn btn-primary btn-lg btn-block">Profile</Link>
+								<a href="#"  className="btn btn-primary btn-lg btn-block" onClick={ (e) => this.userLogout(e) }>
+									Logout
+								</a>
 							</div>						
 						</div>
 					</div>			
@@ -60,10 +52,18 @@ class Home extends Component {
 					<div className="col-lg-4 col-lg-offset-4">
 						<h1 className="center">HOMEPAGE</h1>
     					<div className="well">
-							<Link to="/profile" className="btn btn-primary btn-lg btn-block">Profile</Link>
-							<a href="#"  className="btn btn-primary btn-lg btn-block" onClick={ (e) => this.userLogout(e) }>
-								Logout
-							</a>
+    						<div className="alert alert-danger center">
+    							Welcome To Point of Sales.
+    						</div>
+    						<div className="center">
+    							<FaBoxOpen size="8em" color="#ff5c63" />
+    						</div>
+    						<div className="text-primary text-label center">
+    							Already have an account? Please login.
+    						</div>
+    						<div>
+								<Link to="/login" className="btn btn-primary btn-lg btn-block">Login</Link>
+							</div>
 						</div>						
 					</div>
 				</div>			

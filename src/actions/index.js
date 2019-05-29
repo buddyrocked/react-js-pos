@@ -109,7 +109,8 @@ export const fetchProduct = (id) => async (dispatch, getState) => {
 
 export const fetchCarts = () => async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.get(`${ROOT_URL}carts${API_KEY}`);
@@ -121,12 +122,12 @@ export const fetchCarts = () => async (dispatch, getState) => {
 
 export const createCart = (values, callback) => async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.post(`${ROOT_URL}carts${API_KEY}`, values)
         .then((responseJson) => {
-            Alert.alert(responseJson.data.message);
             callback();
         });
         dispatch({type: CREATE_CART, payload: request});
@@ -137,7 +138,8 @@ export const createCart = (values, callback) => async (dispatch, getState) => {
 
 export const submitCart = (values, callback) =>  async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.post(`${ROOT_URL}carts/submit${API_KEY}`, values)
@@ -153,7 +155,8 @@ export const submitCart = (values, callback) =>  async (dispatch, getState) => {
 
 export const updateCart = (id, values, callback) =>  async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.put(`${ROOT_URL}carts/${id}${API_KEY}`, values)
@@ -169,7 +172,8 @@ export const updateCart = (id, values, callback) =>  async (dispatch, getState) 
 
 export const fetchCart = () =>  async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.get(`${ROOT_URL}carts${API_KEY}`);
@@ -181,7 +185,8 @@ export const fetchCart = () =>  async (dispatch, getState) => {
 
 export const getCart = () => async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.get(`${ROOT_URL}carts${API_KEY}`);
@@ -193,7 +198,8 @@ export const getCart = () => async (dispatch, getState) => {
 
 export const deleteCart = (id, callback) => async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         await axios.delete(`${ROOT_URL}carts/${id}${API_KEY}`)
@@ -206,7 +212,8 @@ export const deleteCart = (id, callback) => async (dispatch, getState) => {
 
 export const clearCart = (callback) => async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.delete(`${ROOT_URL}carts/clear-cart${API_KEY}`)
@@ -219,7 +226,8 @@ export const clearCart = (callback) => async (dispatch, getState) => {
 
 export const reportIndex = () => async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.get(`${ROOT_URL}reports${API_KEY}`);
@@ -231,7 +239,8 @@ export const reportIndex = () => async (dispatch, getState) => {
 
 export const fetchStores = () => async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.get(`${ROOT_URL}stores${API_KEY}`);
@@ -243,7 +252,8 @@ export const fetchStores = () => async (dispatch, getState) => {
 
 export const fetchStore = (id) => async (dispatch, getState) => {
     try {
-        const TOKEN = getState().auth.token;
+        //const TOKEN = getState().auth.token;
+        const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.get(`${ROOT_URL}stores/${id}${API_KEY}`);

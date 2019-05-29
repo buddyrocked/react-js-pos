@@ -3,16 +3,20 @@ import SweetAlert from 'sweetalert2-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import Modal from 'react-modal';
 import ReactPlaceholder from 'react-placeholder';
 import "react-placeholder/lib/reactPlaceholder.css";
 import SlidingPane from 'react-sliding-pane';
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 
-import { fetchProducts, createCart, getCart } from '../../actions';
+import { createCart, fetchProducts, fetchCarts, deleteCart, clearCart, updateCart } from '../../actions';
 import LoaderComponent from '../common/loader';
-import ItemList from './item_list';
+
+import SearchBar from './search_bar';
 
 const KEYS_TO_FILTERS = ['sku', 'name'];
+
+Modal.setAppElement('#root');
 
 class Products extends Component {
 
@@ -21,6 +25,7 @@ class Products extends Component {
         this.state = { showAlert: false };
         this.addToCart = this.addToCart.bind(this);
         this.changePage = this.changePage.bind(this);
+        this.setCartId = this.setCartId.bind(this);
         this.state = {
             visible : false,
             isReady : false,
@@ -28,7 +33,7 @@ class Products extends Component {
             qty : 1,
             text : '',
             message : '',
-            confirmdiv : 'Oke',
+            confirmText : 'Oke',
             searchTerm : '',
             page : 1,
             nextPage : 1,
@@ -36,7 +41,12 @@ class Products extends Component {
             loading : false,
             isPaneOpen: false,
             isPaneOpenLeft: false,
+            modalIsOpen: false
         }
+
+        this.openModal = this.openModal.bind(this);
+        this.afterOpenModal = this.afterOpenModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     static defaultProps = {
@@ -45,7 +55,7 @@ class Products extends Component {
 
     searchUpdated(term) {
         this.setState({
-            searchTerm: term.target.value,
+            searchTerm: term,
         });
 
         this.props.onFetchProducts(1, this.state.searchTerm);
@@ -63,14 +73,28 @@ class Products extends Component {
         });
     };
 
+    openModal() {
+        this.setState({modalIsOpen: true});
+    }
+
+    afterOpenModal() {
+        // references are now sync'd and can be accessed.
+        //this.subtitle.style.color = '#f00';
+    }
+
+    closeModal() {
+        this.setState({modalIsOpen: false});
+    }
+
     openCart(productId){
-        alert('hahaha');
         this.setState({
             visible : true,
             id : productId,
             qty : 1,
-            isPaneOpen: false
+            isPaneOpen: true
         });
+
+        this.openModal();
     }
 
     updateQty = (qty) => {
@@ -96,6 +120,8 @@ class Products extends Component {
                 qty : 1,
                 loading : false
             });
+
+            this.closeModal();
         });
     }
 
@@ -107,6 +133,8 @@ class Products extends Component {
 
     componentDidMount(){
         this.props.onFetchProducts(this.state.page, this.state.searchTerm);
+        this.props.onFetchCarts();
+        
         let nextPage, currentPage, previousPage;
         if(_.isEmpty(this.props.products)){
             nextPage = 2;
@@ -149,6 +177,54 @@ class Products extends Component {
         });
     }
 
+    updateCart () {
+        this.setState({
+            loading : true,
+        });
+
+        let values = JSON.stringify({
+            value: parseInt(this.state.qty),
+        });
+
+        this.props.onUpdateCart(this.state.id, values, () => {
+            this.setState({
+                visible : false,
+                id : 0,
+                qty : 1,
+                loading : false
+            });
+            this.props.onFetchCarts();
+        });
+    }
+
+    setCartId(id, qty){
+        this.setState({
+            visible : true,
+            id : id,
+            qty : qty
+        });
+    }
+
+    confirmDelete(){
+        this.showAlert();
+    }
+
+    eventDeleteCart(e){
+        this.setState({
+            loading : true,
+        });
+
+        this.props.onDeleteCart(this.state.id, () => {
+            this.setState({
+                visible : false,
+                loading : false
+            });
+            this.props.onFetchCarts();
+            this.hideAlert();
+        });
+        e.preventDefault();
+    }
+
     renderProducts() {
         return _.map(this.props.products.items, (item, index) => {
             return (
@@ -180,6 +256,8 @@ class Products extends Component {
     }
 
     render() {
+        const videoSearch = _.debounce((term) => {this.searchUpdated(term)}, 300);
+
         if(_.isEmpty(this.props.products)){
             return (
                 <div>
@@ -199,18 +277,7 @@ class Products extends Component {
                 <div className="col-lg-8">
                     <div className="row">
                         <div className="col-lg-12">
-                            <div className="input-group input-lg">
-                                <input 
-                                    className="form-control input-lg"
-                                    placeholder='Search Products' 
-                                    value={this.state.term} 
-                                    onChange={ term => this.searchUpdated(term) } />
-                                <span className="input-group-btn">
-                                    <button className="btn btn-lg btn-default-o">
-                                        CARI
-                                    </button>
-                                </span>
-                            </div>
+                            <SearchBar onSearchTermChange={videoSearch} />
                         </div>
                     </div>
                     <div className="row">
@@ -234,40 +301,28 @@ class Products extends Component {
                             </a>
                         </div>
                     </div>
-                    <SlidingPane
-                        className='some-custom-class'
-                        overlayClassName='some-custom-overlay-class'
-                        isOpen={ this.state.isPaneOpen }
-                        title='Hey, it is optional pane title.  I can be React component too.'
-                        subtitle='Optional subtitle.'
-                        onRequestClose={ () => {
-                            // triggered on "<" on left top click or on outside click
-                            this.setState({ isPaneOpen: false });
-                        } }>
-                        <div style={styles.slideContainer}>
-                            <div style={{ flex : 1 }}>
-                                <button
-                                    style={{ flex : 1 }}
-                                    onClick={() => this.setState({visible: false})}>
-                                    <div style={{ backgroundColor : '#ff5c63', flex : 1, alignItems : 'center', justifyContent : 'center' }}>
-                                        Close cart
-                                    </div>
-                                </button>
+                    <Modal
+                        isOpen={this.state.modalIsOpen}
+                        onAfterOpen={this.afterOpenModal}
+                        onRequestClose={this.closeModal}
+                        style={customStyles}
+                        contentLabel="Example Modal"
+                    >
+                        <h2 ref={subtitle => this.subtitle = subtitle}>Add to cart</h2>
+                        <div className="row">
+                            <div className="col-xs-8">
+                                <input value={`${this.state.qty}`} className="form-control" onChange={ (qty) => this.updateQty(qty.target.value) } placeholder='Qty'  />
                             </div>
-                            <div style={{ flex : 1 }}>
-                                <divInput value={`${this.state.qty}`} style={ styles.inputQty } onChangediv={ (qty) => this.updateQty(qty) } placeholder='Qty' underlineColorAndroid={'transparent'} keyboardType='numeric' />
-                            </div>
-                            <div style={{ flex : 1 }}>
+                            <div className="col-xs-4">
                                 <button
-                                    style={{ flex : 1 }}
-                                    onClick={() => this.addToCart()}>
-                                    <div style={{ backgroundColor : '#ff5c63', flex : 1, alignItems : 'center', justifyContent : 'center' }}>
-                                        Add to cart
-                                    </div>
+                                    className="btn btn-primary"
+                                    onClick={() => this.addToCart()}>                                    
+                                    Add to cart
                                 </button>
                             </div>
                         </div>
-                    </SlidingPane>
+                    </Modal>
+                    
                     <SweetAlert
                         show={this.state.showAlert}
                         showProgress={false}
@@ -277,8 +332,8 @@ class Products extends Component {
                         closeOnHardwareBackPress={false}
                         showCancelButton={false}
                         showConfirmButton={true}
-                        canceldiv="No, Cancel"
-                        confirmdiv={this.state.confirmdiv}
+                        cancelText="No, Cancel"
+                        confirmText={this.state.confirmText}
                         confirmButtonColor="#ff5c63"
                         onCancelPressed={() => {
                             this.hideAlert();
@@ -289,7 +344,15 @@ class Products extends Component {
                     />
                 </div>
                 <div className="col-lg-4">
-
+                    {this.props.carts.count == 0 ? (
+                        <div>                          
+                        Cart Is Empty
+                        </div>
+                    ) : (
+                        <div>                          
+                        Aya
+                        </div>
+                    )}
                 </div>
             </div>
         );
@@ -301,15 +364,20 @@ class Products extends Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         products: state.products,
-        create_cart : state.create_cart
+        create_cart : state.create_cart,
+        carts: state.carts
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
-        return {
-                onFetchProducts: (page, term) => { dispatch(fetchProducts(page, term)); },
-                onCreateCart: (values, callback) => { dispatch(createCart(values, callback)); }
-        }
+    return {
+        onFetchProducts: (page, term) => { dispatch(fetchProducts(page, term)); },
+        onCreateCart: (values, callback) => { dispatch(createCart(values, callback)); },
+        onClearCart : (callback) => { dispatch(clearCart(callback)); },
+        onFetchCarts : () => { dispatch(fetchCarts()); },
+        onDeleteCart : (id, callback) => { dispatch(deleteCart(id, callback)); },
+        onUpdateCart: (id, values, callback) => { dispatch(updateCart(id, values, callback)); }
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);
@@ -379,8 +447,17 @@ const styles = {
         color : '#000',
         borderColor : '#666',
         borderRadius : 4,
-        height : 60,
-        padding : 10,
         textAlign : 'center'
+    }
+};
+
+const customStyles = {
+    content : {
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
     }
 };
