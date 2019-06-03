@@ -33,6 +33,7 @@ class Sidebar extends Component {
 			footer: '',
 			showCancelButton : true,
 			showCloseButton: true,
+			confirmButtonClass: 'btn btn-primary'
 		}).then((result) => {
 			if (result.value){
 				this.userLogout();
@@ -46,10 +47,10 @@ class Sidebar extends Component {
 			MySwal.fire({
 				text: 'you are logout',
 	        	type: 'success',
-				position : 'bottom-end',
+				position: 'bottom-end',
 		        showConfirmButton: false,
 		        toast: true,
-		        timer    : 3000 
+		        timer: 300000 
 			});
 		});
 	}	

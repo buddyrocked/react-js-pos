@@ -76,15 +76,15 @@ a, a:hover, a:focus {
 }
 
 .btn.btn-primary {
-    background: #ff5c63;
-    border-color: #ff5c63;
-    color:#fff;
+    background: #ff5c63 !important;
+    border-color: #ff5c63 !important;
+    color:#fff !important;
 }
 
 .btn.btn-primary-o {
-    color: #ff5c63;
-    border-color: #ff5c63;
-    background:#fff;
+    color: #ff5c63 !important;
+    border-color: #ff5c63 !important;
+    background:#fff !important;
 }
 
 .btn.btn-primary-o:hover {

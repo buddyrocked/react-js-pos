@@ -122,14 +122,14 @@ class Products extends Component {
             this.props.onFetchCarts();
 
             this.closeModal();
-            console.log(this.props.create_cart);
+
             MySwal.fire({
                 text: this.props.create_cart.message,
                 type: 'success',
                 position : 'bottom-end',
                 showConfirmButton: false,
                 toast: true,
-                timer    : 3000 
+                timer: 9000 
             });
         });
     }
