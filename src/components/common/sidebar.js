@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FaBeer, FaCreditCard, FaBoxOpen, FaChartLine, FaPowerOff } from 'react-icons/fa';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 import { logout } from '../../actions';
 import Auth from '../../services/auth';
+
+const MySwal = withReactContent(Swal)
 
 class Sidebar extends Component {
 	
@@ -12,14 +16,42 @@ class Sidebar extends Component {
 		super(props);
 		this.state = {
 		  	cart_count : 0,
+		  	show : false
 		};
 	}
 
-	userLogout(e) {
-		this.props.onLogout(() => {
-			this.props.history.push('/');
-		});
+	handleLogout(e){
+		this.showAlert();
 		e.preventDefault();
+	}
+
+	showAlert(){
+		MySwal.fire({
+			title: <p>Logout</p>,
+			text: 'Are you sure?',
+        	type: 'warning',
+			footer: '',
+			showCancelButton : true,
+			showCloseButton: true,
+		}).then((result) => {
+			if (result.value){
+				this.userLogout();
+			}
+		});
+	}
+
+	userLogout() {
+		this.props.onLogout(() => {
+			this.props.history.push('/login');
+			MySwal.fire({
+				text: 'you are logout',
+	        	type: 'success',
+				position : 'bottom-end',
+		        showConfirmButton: false,
+		        toast: true,
+		        timer    : 3000 
+			});
+		});
 	}	
 
 	componentDidMount(){
@@ -28,6 +60,7 @@ class Sidebar extends Component {
 
 	render() {
 		return (
+			<>
 			<nav id="sidebar" className="active">
 		        <div className="sidebar-header">
 		            <h3>Bootstrap Sidebar</h3>
@@ -68,7 +101,7 @@ class Sidebar extends Component {
 					{
         					Auth.isAuthenticated() &&
 							<li>
-								<a href="#" onClick={ (e) => this.userLogout(e) }>
+								<a href="#" onClick={ (e) => this.handleLogout(e) }>
 									<FaPowerOff size="1.8em" color="#ff5c63" style={iconStyle}/>
 									Logout
 								</a>
@@ -76,6 +109,7 @@ class Sidebar extends Component {
 					}
 				</ul>
 			</nav>
+			</>
 		);	
 	};
 }

@@ -126,11 +126,11 @@ export const createCart = (values, callback) => async (dispatch, getState) => {
         const TOKEN = localStorage.getItem('token');
         const API_KEY = `?access-token=${TOKEN}`;
 
-        let request = await axios.post(`${ROOT_URL}carts${API_KEY}`, values)
+        await axios.post(`${ROOT_URL}carts${API_KEY}`, values)
         .then((responseJson) => {
+            dispatch({type: CREATE_CART, payload: responseJson});
             callback();
         });
-        dispatch({type: CREATE_CART, payload: request});
     }catch(e){
         console.log(e)
     }

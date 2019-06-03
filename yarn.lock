@@ -9259,6 +9259,11 @@ svgo@^1.0.0, svgo@^1.2.1:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+sweetalert2-react-content@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/sweetalert2-react-content/-/sweetalert2-react-content-1.1.0.tgz#38c9790631cab37e03055a617afda6d2f447e1d2"
+  integrity sha512-vgmDAGwE4nvFWMkfVO/varrZXLhn2/apOL3O+fi3S2a6NkHWBXP1FGU7HkcmrLvNS1oGC3JcaBP2+r98LRyLIw==
+
 sweetalert2-react@^0.8.1:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/sweetalert2-react/-/sweetalert2-react-0.8.1.tgz#2f850f8e8ed7ee3f76c10c92eb2522a67b6bf6c0"
@@ -9269,6 +9274,11 @@ sweetalert2-react@^0.8.1:
     prop-types "^15.0.0"
     sweetalert2 "^8.5.0"
     warning "^4.0.3"
+
+sweetalert2@^8.11.7:
+  version "8.11.7"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-8.11.7.tgz#f16dfc18bb99ce9f0956456f03fd3b5615c477a6"
+  integrity sha512-WC5x+L9ejKpWERNc3aAyxeUs+nchGNEBZeB7CPP/bRVOUVEBZsKw2Ibt1qdV4Ap90JOTK/4/xrCnZ/XyUNzqBw==
 
 sweetalert2@^8.5.0:
   version "8.11.6"

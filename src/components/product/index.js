@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import SweetAlert from 'sweetalert2-react';
-import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import ReactPlaceholder from 'react-placeholder';
 import "react-placeholder/lib/reactPlaceholder.css";
-import SlidingPane from 'react-sliding-pane';
-import 'react-sliding-pane/dist/react-sliding-pane.css';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 import { createCart, fetchProducts, fetchCarts, deleteCart, clearCart, updateCart } from '../../actions';
 import LoaderComponent from '../common/loader';
 
 import SearchBar from './search_bar';
 
-const KEYS_TO_FILTERS = ['sku', 'name'];
+const MySwal = withReactContent(Swal)
 
 Modal.setAppElement('#root');
 
@@ -121,7 +119,18 @@ class Products extends Component {
                 loading : false
             });
 
+            this.props.onFetchCarts();
+
             this.closeModal();
+            console.log(this.props.create_cart);
+            MySwal.fire({
+                text: this.props.create_cart.message,
+                type: 'success',
+                position : 'bottom-end',
+                showConfirmButton: false,
+                toast: true,
+                timer    : 3000 
+            });
         });
     }
 
@@ -135,7 +144,7 @@ class Products extends Component {
         this.props.onFetchProducts(this.state.page, this.state.searchTerm);
         this.props.onFetchCarts();
         
-        let nextPage, currentPage, previousPage;
+        let nextPage, previousPage;
         if(_.isEmpty(this.props.products)){
             nextPage = 2;
             previousPage = 0;
@@ -160,7 +169,7 @@ class Products extends Component {
 
         this.props.onFetchProducts(page, this.state.searchTerm);
 
-        let nextPage, currentPage, previousPage;
+        let nextPage, previousPage;
         if(_.isEmpty(this.props.products)){
             nextPage = 2;
             previousPage = 0;
@@ -256,7 +265,7 @@ class Products extends Component {
     }
 
     render() {
-        const videoSearch = _.debounce((term) => {this.searchUpdated(term)}, 300);
+        const productSearch = _.debounce((term) => {this.searchUpdated(term)}, 300);
 
         if(_.isEmpty(this.props.products)){
             return (
@@ -277,7 +286,7 @@ class Products extends Component {
                 <div className="col-lg-8">
                     <div className="row">
                         <div className="col-lg-12">
-                            <SearchBar onSearchTermChange={videoSearch} />
+                            <SearchBar onSearchTermChange={productSearch} />
                         </div>
                     </div>
                     <div className="row">
@@ -322,29 +331,9 @@ class Products extends Component {
                             </div>
                         </div>
                     </Modal>
-                    
-                    <SweetAlert
-                        show={this.state.showAlert}
-                        showProgress={false}
-                        title="Information"
-                        message={this.state.message}
-                        closeOnTouchOutside={true}
-                        closeOnHardwareBackPress={false}
-                        showCancelButton={false}
-                        showConfirmButton={true}
-                        cancelText="No, Cancel"
-                        confirmText={this.state.confirmText}
-                        confirmButtonColor="#ff5c63"
-                        onCancelPressed={() => {
-                            this.hideAlert();
-                        }}
-                        onConfirmPressed={() => {
-                            this.hideAlert();
-                        }}
-                    />
                 </div>
                 <div className="col-lg-4">
-                    {this.props.carts.count == 0 ? (
+                    {this.props.carts.count === 0 ? (
                         <div>                          
                         Cart Is Empty
                         </div>
