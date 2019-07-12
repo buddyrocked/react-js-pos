@@ -1,0 +1,28 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "quantity": 2,
+            "subtotal": "Rp.24.000",
+            "price": "Rp.12.000",
+            "product": "putih",
+            "sku": "9000",
+            "type": "Reguler",
+            "unit": "kg"
+        },
+        {
+            "id": 2,
+            "quantity": 2,
+            "subtotal": "Rp.24.000",
+            "price": "Rp.12.000",
+            "product": "Biru",
+            "sku": "9010",
+            "type": "Reguler",
+            "unit": "kg"
+        }
+    ],
+    "count": 4,
+    "total": "48000",
+    "total_text": "Rp.48000",
+    "terbilang": "empat puluh delapan ribu"
+}
