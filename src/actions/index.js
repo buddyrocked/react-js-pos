@@ -36,8 +36,9 @@ export function fetchHome() {
 
 export const login = (values, callback, callback2) => async (dispatch, getState) => {
     try{
-
-        await axios.post(`${ROOT_URL}auth/login`, values)
+        let url = 'https://raw.githubusercontent.com/buddyrocked/react-js-pos/master/src/data/login.json';
+        //let url = `${ROOT_URL}auth/login`;
+        await axios.post(url, values)
         .then((responseJson) => {
             if(responseJson.data.token === '') {
                 callback2();
