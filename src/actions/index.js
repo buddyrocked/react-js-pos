@@ -114,6 +114,7 @@ export const fetchCarts = () => async (dispatch, getState) => {
         const API_KEY = `?access-token=${TOKEN}`;
 
         let request = await axios.get(`${ROOT_URL}carts${API_KEY}`);
+        console.log("Cookies are ", document.cookie);
         dispatch({type: FETCH_CARTS, payload: request});
     }catch(e){
         console.log(e)

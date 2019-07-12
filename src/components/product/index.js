@@ -182,7 +182,7 @@ class Products extends Component {
             isReady : true,
             nextPage : nextPage,
             previousPage : previousPage,
-            loading : true
+            loading : false
         });
     }
 
@@ -237,7 +237,7 @@ class Products extends Component {
     renderProducts() {
         return _.map(this.props.products.items, (item, index) => {
             return (
-                <div className="col-lg-4 col-md-3 col-xs-2" key={index}>
+                <div className="col-lg-4 col-md-3 col-xs-12" key={index}>
                     <ReactPlaceholder type='media' rows={7} ready={this.state.isReady}>
                         <div style={{ flex : 1, flexDirection : 'row' }}>
                             <div style={ styles.itemImage }>
@@ -294,20 +294,22 @@ class Products extends Component {
                     </div>
                     <div className="row">
                         <div className="col-xs-6">
-                            <a href="#"
-                                style={{ flex : 1 }}
+                        { this.props.products._meta.currentPage >= this.props.products._meta.pageCount &&
+                            <button
+                                className="btn btn-primary"
                                 onClick={ () => this.changePage(this.state.previousPage) }>
                                 prev
-                            </a>
+                            </button>
+                        }
                         </div>
                         <div className="col-xs-6">
-                            <a href="#"
-                                style={{ flex : 1 }}
+                        { this.props.products._meta.currentPage < this.props.products._meta.pageCount &&
+                            <button
+                                className="btn btn-primary"
                                 onClick={ () => this.changePage(this.state.nextPage) }>
-                                <div  style={{ flex : 1, justifyContent : 'center', alignItems : 'center' }}>
-                                    next
-                                </div>
-                            </a>
+                                next
+                            </button>
+                        }
                         </div>
                     </div>
                     <Modal
@@ -352,9 +354,9 @@ class Products extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        products: state.products,
+        products    : state.products,
         create_cart : state.create_cart,
-        carts: state.carts
+        carts       : state.carts
     };
 }
 

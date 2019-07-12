@@ -14,8 +14,8 @@ class LoaderComponent extends Component {
             return (
                     <div id="loader-container">
                         <Loader 
-                            type="Audio"
-                            color="#2C3E50"
+                            type="Watch"
+                            color="#ff5c63"
                             height="100"    
                             width="100"
                         />

@@ -1,0 +1,9 @@
+{
+    "code": 200,
+    "status": 1,
+    "user_id": 1,
+    "username": "superadmin",
+    "token": "rPevU83FhWrT3TbMPO_BDVdhAxy9w4e6",
+    "name": "success",
+    "message": "Authorized"
+}

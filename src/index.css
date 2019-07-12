@@ -647,7 +647,7 @@ a.article, a.article:hover {
 .datepicker > div { display: inherit; }
 
 #loader-container {
-	background: rgba(225,225,255, 0.5);
+	background: rgba(255,255,255, 1);
 	padding-top: 20%;
 	position: fixed;
 	text-align: center;
@@ -655,4 +655,6 @@ a.article, a.article:hover {
     right: 0;
     left: 0;
     z-index: 1031;
+    width:100%;
+    height: 100%;
 }

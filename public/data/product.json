@@ -1,0 +1,57 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "product_id": 1,
+            "sku": "9000",
+            "name": "putih",
+            "store_id": 1,
+            "price": "Rp 12.000",
+            "special_price": "Rp 12.000",
+            "product": {
+                "id": 1,
+                "category_id": 1,
+                "category_name": "Cat",
+                "sku": "9000",
+                "name": "putih",
+                "type": 0,
+                "type_name": "Reguler",
+                "unit": "kg",
+                "image": "image_64701558934535.jpg",
+                "status": 1
+            }
+        },
+        {
+            "id": 2,
+            "product_id": 2,
+            "sku": "9010",
+            "name": "Biru",
+            "store_id": 1,
+            "price": "Rp 12.000",
+            "special_price": "Rp 12.000",
+            "product": {
+                "id": 2,
+                "category_id": 1,
+                "category_name": "Cat",
+                "sku": "9010",
+                "name": "Biru",
+                "type": 0,
+                "type_name": "Reguler",
+                "unit": "kg",
+                "image": "image_79011558938705.png",
+                "status": 1
+            }
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "http://backend-pos.local/v1/prices?access-token=rPevU83FhWrT3TbMPO_BDVdhAxy9w4e6&expand=product&page=1&term=&per-page=10"
+        }
+    },
+    "_meta": {
+        "totalCount": 2,
+        "pageCount": 1,
+        "currentPage": 1,
+        "perPage": 10
+    }
+}
