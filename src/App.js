@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, HashRouter } from 'react-router-dom';
 
 
 import reducers from './reducers';
@@ -28,7 +28,7 @@ export default class App extends React.Component {
     render() {
         return (
             <Provider store={store}>
-                <BrowserRouter>
+                <HashRouter>
                     <Switch>
                         <Route exact path='/login' component={Login} />
                         <UnsecuredRoute exact path='/' component={Home} withSidebar="true" />
@@ -36,7 +36,7 @@ export default class App extends React.Component {
                         <SecuredRoute exact path='/intro' component={Intro} withSidebar="true" />
                         <SecuredRoute exact path='/products' component={Products} withSidebar="true" />
                     </Switch>
-                </BrowserRouter>
+                </HashRouter>
             </Provider>
         );
     }
